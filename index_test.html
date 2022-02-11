@@ -16,39 +16,49 @@
 <!-- Load Babel -->
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <!-- Your custom script here -->
+<!-- 
+    inverted
+    amount
+    onChange
+    onInvert
+ -->
 <script type="text/babel">
+
     const root = document.getElementById("root");
     function App() {
-        const [amount, setAmount] = React.useState(0);
+        const  [amount, setAmount] = React.useState();
         const [inverted, setInverted] = React.useState(false);
         const onChange = (event) => {
             setAmount(event.target.value);
-        };
-        
-        const reset = () => {setAmount(0);}
+        }
+        const reset = () => setAmount(0);
         const onInvert = () => {
             reset();
-            setInverted((current) => !current);}
-
+            setInverted((cur) => !cur);
+        }
         return(
             <div>
-                <h3>Super Converter</h3>
+                <h3>시 / 분 변환</h3>
                 <div>
-                    <label htmlfor="amount"></label>
-                    <input value={inverted ? amount * 60 : amount} 
-                        id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={inverted} />
+                    <label htmlfor="amount">시</label>
+                    <input type="text" id="amount" placeholder="시" onChange={onChange}
+                        value={inverted ? amount / 60 : amount } disabled={inverted} />
                 </div>
                 <div>
-                    <label htmlfor="hours"></label>
-                    <input value={inverted ? amount : Math.round(amount / 60)} 
-                        id="minutes" placeholder="Hours" type="number" onChange={onChange} disabled={!inverted} />
+                    <label htmlfor="amount">분</label>
+                    <input type="text" id="amount" placeholder="분" onChange={onChange}
+                        value={inverted ? amount : Math.round(amount * 60) } disabled={!inverted} />
                 </div>
+
                 <button onClick={reset}>Reset</button>
-                <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                <button onClick={onInvert}>Inverted</button>
             </div>
         );
     }
+
+
     ReactDOM.render(<App />, root);
+
 
 </script>
 </html>

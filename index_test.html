@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="style.css"> -->
 
-    <title>react_start</title>
+    <title>TEST</title>
 </head>
 <body>
     <div id="root"></div> 
@@ -23,42 +23,38 @@
     onInvert
  -->
 <script type="text/babel">
-
     const root = document.getElementById("root");
     function App() {
-        const  [amount, setAmount] = React.useState();
-        const [inverted, setInverted] = React.useState(false);
-        const onChange = (event) => {
-            setAmount(event.target.value);
-        }
-        const reset = () => setAmount(0);
-        const onInvert = () => {
-            reset();
-            setInverted((cur) => !cur);
-        }
-        return(
+    const [amount, setAmount] = React.useState();    
+    const [inverted, setInverted] = React.useState(false);
+    const onChange = (event) => {
+        setAmount(event.target.value);
+    }
+    const reset = () => {
+        setAmount(0);
+    }
+    const onInvert = () => {
+        reset();
+        setInverted((cur) => !cur);
+    }
+    
+    return(
+        <div>
             <div>
-                <h3>시 / 분 변환</h3>
-                <div>
-                    <label htmlfor="amount">시</label>
-                    <input type="text" id="amount" placeholder="시" onChange={onChange}
-                        value={inverted ? amount / 60 : amount } disabled={inverted} />
-                </div>
-                <div>
-                    <label htmlfor="amount">분</label>
-                    <input type="text" id="amount" placeholder="분" onChange={onChange}
-                        value={inverted ? amount : Math.round(amount * 60) } disabled={!inverted} />
-                </div>
-
-                <button onClick={reset}>Reset</button>
-                <button onClick={onInvert}>Inverted</button>
+                <input type="number" placeholder="분" onChange={onChange} disabled={inverted}
+                    value={inverted ? amount * 60 : amount} />
             </div>
-        );
+            <div>
+                <input type="number" placeholder="시" onChange={onChange} disabled={!inverted}
+                    value={inverted ? amount : Math.round(amount / 60)} />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>Invert</button>
+        </div>
+    );
     }
 
-
     ReactDOM.render(<App />, root);
-
-
+ 
 </script>
 </html>
